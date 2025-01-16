@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для получения списка заказов с сервера
     async function loadOrders() {
         try {
+            // Получение созданных заказов с сервера
             const response = await fetch(`${API_URL}?api_key=${API_KEY}`);
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке заказов');
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             ordersList.innerHTML = '';
+            // Отображение заказов на странице 
             orders.forEach((order, index) => {
                 const totalPriceFromComment = extractTotalPriceFromComment(order.comment);
                 const orderRow = document.createElement('tr');
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img class="deleteOrder" data-id="${order.id}" src="./profilesource/trash.png" alt="Удалить" title="Удалить">
                     </td>
                 `;
+                // Добавление кнопок
                 ordersList.appendChild(orderRow);
                 orderRow.querySelector('.viewOrder').addEventListener('click', () => viewOrder(order.id));
                 orderRow.querySelector('.editOrder').addEventListener('click', () => editOrder(order.id));
@@ -60,10 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для открытия модального окна редактирования заказа
     async function editOrder(orderId) {
         try {
+            // Получение информации о конкретном товаре
             const response = await fetch(`${API_URL}/${orderId}?api_key=${API_KEY}`);
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке данных заказа');
             }
+            // Данные заказа
             const order = await response.json();
     
             // Извлекаем итоговую стоимость из комментария
@@ -92,10 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Костыль для извлечения итоговой стоимости из комментария
     function extractTotalPriceFromComment(comment) {
         if (comment) {
-            const priceMatch = comment.match(/₽(\d+(\.\d{1,2})?)/);
+            const priceMatch = comment.match(/₽(\d+)/); 
             if (priceMatch) {
-                let price = priceMatch[1];
-                return price.replace(/\.00$/, ''); 
+                return priceMatch[1];
             }
         }
         return null;
@@ -123,20 +127,23 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'editComment', key: 'comment' },
         ];
     
+        // Подготовка информации о товаре для отправки на сервер
         fields.forEach(({ id, key }) => {
             const fieldValue = document.getElementById(id).value.trim();
             if (fieldValue) {
                 updatedData[key] = fieldValue; 
             }
         });
-    
+        
+        // Возвращение тотал прайса в комментарий для корректной обработки
         const totalPrice = document.getElementById('editTotalPrice').value.trim();
         if (totalPrice) {
             updatedData.total_price = totalPrice;
             updatedData.comment = `${updatedData.comment || ''} ₽${totalPrice}`; // Вставляем стоимость обратно в комментарий
         }
-    
+        
         try {
+            // Попытка запроса редактирования заказа
             const response = await fetch(`${API_URL}/${orderId}?api_key=${API_KEY}`, {
                 method: 'PUT',
                 headers: {
@@ -162,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Получение данных конкретного заказа и отображение в модальном окне
     async function viewOrder(orderId) {
         try {
+            // Получение данных о заказе с сервера
             const response = await fetch(`${API_URL}/${orderId}?api_key=${API_KEY}`);
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке данных заказа');
@@ -171,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const cleanComment = order.comment.replace(/₽\d+(\.\d{1,2})?/, '').trim();
 
+            // Отображение в модальном окне
             orderDetails.innerHTML = `
                 <p><strong>Дата оформления:</strong> ${order.created_at}</p>
                 <p><strong>Имя:</strong> ${order.full_name}</p>
@@ -189,17 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Ошибка при загрузке данных заказа:', error);
             showNotification('Ошибка при загрузке данных заказа. Попробуйте позже.', 'error');
         }
-    }
-
-    // Костыль для извлечения итоговой стоимости из комментария
-    function extractTotalPriceFromComment(comment) {
-        if (comment) {
-            const priceMatch = comment.match(/₽(\d+(\.\d{1,2})?)/);
-            if (priceMatch) {
-                return priceMatch[1].trim(); 
-            }
-        }
-        return null;
     }
 
     // Функция для отображения уведомлений
@@ -221,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmDeleteButton.addEventListener('click', async () => {
         if (!orderIdToDelete) return;
         try {
+            // Отправка на сервер DELETE запроса
             const response = await fetch(`${API_URL}/${orderIdToDelete}?api_key=${API_KEY}`, {
                 method: 'DELETE',
                 headers: {

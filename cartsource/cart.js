@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentInput = document.getElementById('comment');
     const newsletterInput = document.getElementById('newsletter');
 
+    // Загрузка корзины из localStorage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let data = [];
     let totalProductPrice = 0;
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emptyCartMessage.style.display = 'none';
 
         try {
+            // Получение данных о товарах с сервера
             const url = `${API_URL}?&api_key=${API_KEY}`;
             const response = await fetch(url, {
                 method: 'GET',
@@ -44,9 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Ошибка загрузки товаров. Статус:', response.status);
                 throw new Error('Ошибка при загрузке данных товаров');
             }
-
+            // Данные о товара с сервера
             data = await response.json();
 
+            // Фильтрация товаров с сервера в соответсвии с корзиной
             const filteredProducts = data.filter(product => cart.includes(String(product.id)));
 
             if (filteredProducts.length === 0) {
@@ -58,11 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsContainer.innerHTML = '';
             totalProductPrice = 0;
 
+            // Отображение карточек товаров из корзины на странице
             filteredProducts.forEach(product => {
                 const productCard = document.createElement('div');
                 productCard.classList.add('productCard');
 
                 const productPrice = product.discount_price || product.actual_price;
+                // Подсчет стоимости каждого товара
                 totalProductPrice += productPrice;
 
                 productCard.innerHTML = `
@@ -80,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItemsContainer.appendChild(productCard);
             });
 
+            // Обработчик кнопки удаления товара
             document.querySelectorAll('.removeFromCart').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const productId = event.target.dataset.id;
@@ -95,18 +101,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Удаление товара по кнопке
     function removeFromCart(productId) {
         cart = cart.filter(id => id !== productId);
         localStorage.setItem('cart', JSON.stringify(cart));
         loadCartItems();
     }
 
+    // Рассчет итоговой стоимости
     function updateTotalPrice() {
         let deliveryCost = calculateDeliveryCost();
         let totalPrice = totalProductPrice + deliveryCost;
         totalPriceElement.textContent = `Итоговая стоимость: ₽${totalPrice}`;
     }
 
+    // Рссчет стоимости за доставку
     function calculateDeliveryCost() {
         const deliveryDate = deliveryDateInput.value; 
         const timeSlot = timeSlotInput.value;
@@ -115,15 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const day = new Date(deliveryDate).getDay();  
 
-        if (day === 0 || day === 6) { 
+        if (day === 0 || day === 6) { //Выходной день
             deliveryCost += 300;
-        } else if (timeSlot && timeSlot.startsWith('18')) { 
+        } else if (timeSlot && timeSlot.startsWith('18')) { //Будний с 18:00
             deliveryCost += 200;
         }
 
         return deliveryCost;
     }
 
+    // При изменении даты / времени происходит пересчет итоговой стоимости
     deliveryDateInput.addEventListener('change', () => {
         updateTotalPrice();
     });
@@ -132,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTotalPrice();
     });
 
+    // Кнопка сброса выбранных товаров
     const resetButton = document.querySelector('button[type="reset"]');
     if (resetButton) {
         resetButton.addEventListener('click', () => {
@@ -159,15 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Обработчик отправки формы заказа
     const submitButton = document.querySelector('button[type="submit"]');
     if (submitButton) {
+        // При нажатии на кнопку оформления заказа
         submitButton.addEventListener('click', async (event) => {
             event.preventDefault(); 
 
+            // Пересчет итоговой стоимости для отправки
             let deliveryCost = calculateDeliveryCost();
             let totalPrice = totalProductPrice + deliveryCost;
 
+            // Формируем данные для отправки
             const orderData = {
                 // Костыль для передачи итоговой стоимости, чтобы не считать ее снова..
-                comment: commentInput.value + `₽${totalPrice.toFixed(2)}`,
+                comment: commentInput.value + `₽${totalPrice.toFixed(0)}`,
                 delivery_address: addressInput.value,
                 delivery_date: deliveryDateInput.value.split('-').reverse().join('.'),
                 delivery_interval: timeSlotInput.value,
@@ -178,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 subscribe: newsletterInput.checked ? 1 : 0
             };
 
+            // Создаем заказ
             try {
                 const url = `${ORDER_API_URL}?&api_key=${API_KEY}`;
                 const response = await fetch(url, {
@@ -193,16 +208,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
+                // В случае успеха
                 showNotification('Ваш заказ успешно оформлен!', 'success');
 
+                // Очищаем корзину
                 localStorage.removeItem('cart');
                 cart = [];
                 loadCartItems();
 
+                // Перенаправление на основную страницу
                 setTimeout(() => {
-                    window.location.href = 'main.html'; 
+                    window.location.href = 'index.html'; 
                 }, 2000); 
-            } catch (error) {
+            } catch (error) {   
                 console.error('Произошла ошибка при отправке запроса:', error);
                 showNotification('Произошла ошибка при отправке запроса. Попробуйте снова.', 'error');
             }

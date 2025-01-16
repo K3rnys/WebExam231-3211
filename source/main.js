@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadProducts(page = 1) {
         try {
-            // Формируем URL с учётом сортировки
+            // Формируем URL с учётом страницы сортировки 
             const url = `${API_URL}?page=${page}&per_page=10&sort_order=${sortOrder}&api_key=${API_KEY}`;
             console.log(`Запрос на страницу: ${page} Сортировка: ${sortOrder}`); // Логирование запроса
             const response = await fetch(url, {
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Ошибка при запросе данных');
             }
 
+            // Все товары с сервера
             const data = await response.json();
 
             currentPage = data._pagination.current_page;
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productsContainer = document.getElementById('productGrid');
             productsContainer.innerHTML = '';
 
+            // Товары из корзины (LocalStorage)
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
             // Генерация карточек товаров
@@ -82,12 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!cart.includes(productId)) {
             cart.push(productId);
             localStorage.setItem('cart', JSON.stringify(cart));
-            button.textContent = 'Добавлено'; // Меняем текст на "Добавлено"
-            button.classList.add('added'); // Добавляем класс для изменения стиля
+            button.textContent = 'Добавлено'; 
+            button.classList.add('added'); 
         }
     }
 
-    // Обновление пагинации
+    // Обновление текущей страницы 
     function updatePagination() {
         const paginationContainer = document.getElementById('pagination');
         paginationContainer.innerHTML = '';
@@ -102,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             pageButton.addEventListener('click', () => {
+                // Загружаем товары с определенной страницы
                 loadProducts(page);
             });
 
