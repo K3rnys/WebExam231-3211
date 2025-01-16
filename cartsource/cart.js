@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadCartItems();
 
                 setTimeout(() => {
-                    window.location.href = 'main.html'; 
+                    window.location.href = 'index.html'; 
                 }, 2000); 
             } catch (error) {
                 console.error('Произошла ошибка при отправке запроса:', error);
@@ -210,4 +210,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadCartItems();
-});
+});       
