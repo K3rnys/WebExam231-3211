@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="./profilesource/profile.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">Мой Магазин</div>
+        <nav>
+            <a href="main.html" class="iconLink" title="Корзина"><img src="./cartsource/main.png" alt="Главная страница"></a>
+            <a href="cart.html" class="iconLink" title="Личный кабинет"><img src="./source/cart.png" alt="Личный кабинет"></a>
+
+        </nav>
+    </header>
+
+    <div id="notifications" class="notifications hidden">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modalContent">
+            <h2>Вы уверены, что хотите удалить заказ?</h2>
+            <div class="buttonContainer">
+                <button id="confirmDelete" class="modalButton">Да</button>
+                <button id="cancelDelete" class="modalButton">Нет</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderModal" class="modal hidden">
+        <div class="modalContent">
+            <h2>Просмотр заказа</h2>
+    
+            <div id="orderDetails">
+                <p><strong>Дата оформления:</strong> <span id="orderCreatedAt"></span></p>
+                <p><strong>Имя:</strong> <span id="orderFullName"></span></p>
+                <p><strong>Номер телефона:</strong> <span id="orderPhone"></span></p>
+                <p><strong>Email:</strong> <span id="orderEmail"></span></p>
+                <p><strong>Адрес доставки:</strong> <span id="orderDeliveryAddress"></span></p>
+                <p><strong>Дата доставки:</strong> <span id="orderDeliveryDate"></span></p>
+                <p><strong>Время доставки:</strong> <span id="orderDeliveryInterval"></span></p>
+                <p><strong>Состав заказа:</strong> <span id="orderGoods"></span></p>
+                <p><strong>Итоговая стоимость:</strong> <span id="orderTotalPrice"></span></p>
+                <p><strong>Комментарий:</strong> <span id="orderComment"></span></p>
+            </div>
+    
+            <button id="closeOrderModal" class="modalButton">Ок</button>
+        </div>
+    </div>
+    
+    <div id="editOrderModal" class="modal hidden">
+        <div class="modalContent customWidth">
+            <h2>Редактирование заказа</h2>
+            <form id="editOrderForm">
+                <label for="editOrderDate">Дата оформления</label>
+                <input type="text" id="editOrderDate" name="orderDate" disabled>
+    
+                <label for="editName">Имя</label>
+                <input type="text" id="editName" name="name" required>
+    
+                <label for="editPhone">Номер телефона</label>
+                <input type="text" id="editPhone" name="phone" required>
+    
+                <label for="editEmail">Email</label>
+                <input type="email" id="editEmail" name="email" required>
+    
+                <label for="editAddress">Адрес доставки</label>
+                <input type="text" id="editAddress" name="address" required>
+    
+                <label for="editDeliveryDate">Дата доставки</label>
+                <input type="date" id="editDeliveryDate" name="deliveryDate" required>
+    
+                <label for="editTimeSlot">Временной интервал доставки</label>
+                <select id="editTimeSlot" name="timeSlot">
+                    <option value="08:00-12:00">8:00 - 12:00</option>
+                    <option value="12:00-14:00">12:00 - 14:00</option>
+                    <option value="14:00-18:00">14:00 - 18:00</option>
+                    <option value="18:00-22:00">18:00 - 22:00</option>
+                </select>
+    
+                <label for="editOrderItems">Состав заказа</label>
+                <textarea id="editOrderItems" name="orderItems" disabled></textarea>
+    
+                <label for="editTotalPrice">Стоимость</label>
+                <input type="text" id="editTotalPrice" name="totalPrice" disabled>
+    
+                <label for="editComment">Комментарий</label>
+                <textarea id="editComment" name="comment"></textarea>
+    
+                <div class="buttonContainer">
+                    <button type="button" id="cancelEdit" class="modalButton">Отмена</button>
+                    <button type="submit" class="modalButton">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="container">
+            <h1>Личный кабинет</h1>
+
+            <section class="orders">
+                <h2>Заказы</h2>
+                <table class="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Дата и время</th>
+                            <th>Состав</th>
+                            <th>Итоговая стоимость</th>
+                            <th>Дата доставки</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersList">
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div><p>Печерин Ильдар 231-3211 | Контакты: t.me/K3rnys</p></div>
+    </footer>
+
+    <script src="./profilesource/profile.js"></script>
+</body>
+</html>

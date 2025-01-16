@@ -1,0 +1,272 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; 
+    display: flex;
+    flex-direction: column; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+header .logo {
+    padding-left: 5px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .searchBar {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+header nav {
+    display: flex;
+    gap: 15px;
+}
+
+header .iconLink img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Всплывающие уведомления */
+.notifications {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Сайдбар */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    flex-shrink: 0; 
+    height: 100%; 
+    overflow-y: auto; 
+}
+
+.sidebar h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.sidebar form div {
+    margin-bottom: 15px;
+}
+
+.sidebar label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.checkboxGroup {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.checkboxGroup input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.sidebar input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: #218838;
+}
+
+/* Основной контент */
+.contentContainer {
+    display: flex;
+    flex-wrap: nowrap; 
+    align-items: flex-start; 
+    gap: 20px; 
+    margin-top: 20px;
+}
+
+main {
+    flex: 1; 
+    padding: 20px;
+    background-color: #f9f9f9; 
+    border-radius: 8px;
+}
+
+.sort {
+    margin-bottom: 20px;
+}
+
+#sort {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Сетка товаров */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.productCard {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+    height: 100%; 
+}
+
+.productCard h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; 
+    height: 50px; 
+    line-height: 24px; 
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.productCard img {
+    height: 150px;
+    width: 100%;
+    object-fit: contain; 
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.productCard .rating {
+    font-size: 16px;    
+    margin-bottom: 4px;
+}
+
+.productCard .price {
+    margin-bottom: 12px;
+}
+
+.productCard .actualPrice {
+    text-decoration: line-through;
+    color: #e74c3c;
+    margin-right: 10px;
+}
+
+.productCard .discountPrice {
+    font-weight: bold; 
+}
+
+.productCard button {
+    align-self: center;
+    padding: 8px 12px;
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.productCard button:hover {
+    background-color: #0056b3; 
+}
+
+/* Оформление для кнопки "Добавлено" */
+.productCard button.added {
+    background-color: #28a745; 
+    color: white;
+    cursor: not-allowed; /* Запрещающий курсор */
+}
+
+.productCard button.added:hover {
+    background-color: #28a745;
+}
+
+/* Стили для панели навигации по страницам */
+#pagination {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pageButton {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pageButton:hover {
+    background-color: #0056b3;
+}
+
+.pageButton.active {
+    background-color: #0056b3;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: auto;  
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}

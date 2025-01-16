@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет магазин</title>
+    <link rel="stylesheet" href="./source/main.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">Мой Магазин</div>
+        <input type="text" class="searchBar" placeholder="Поиск...">
+        <nav>
+            <a href="cart.html" class="iconLink" title="Корзина"><img src="./source/cart.png" alt="Корзина"></a>
+            <a href="profile.html" class="iconLink" title="Личный кабинет"><img src="./source/profile.png" alt="Личный кабинет"></a>
+        </nav>
+    </header>
+
+    <div class="notifications" id="notifications"></div>
+
+    <div class="contentContainer">
+        <aside class="sidebar">
+            <h3>Фильтры</h3>
+            <form id="filters">
+                <div>
+                    <label>Категории:</label>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="furniture" name="category" value="Furniture">
+                        <label for="furniture">Мебель</label>
+                    </div>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="camera-accessories" name="category" value="Camera Accessories">
+                        <label for="camera-accessories">Аксессуары для камеры</label>
+                    </div>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="fitness-accessories" name="category" value="Fitness Accessories">
+                        <label for="fitness-accessories">Аксессуары для фитнеса</label>
+                    </div>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="diet-nutrition" name="category" value="Diet & Nutrition">
+                        <label for="diet-nutrition">Диеты и питание</label>
+                    </div>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="electronics" name="category" value="All Electronics">
+                        <label for="electronics">Электроника</label>
+                    </div>
+                    <div class="checkboxGroup">
+                        <input type="checkbox" id="home-kitchen" name="category" value="All Home & Kitchen">
+                        <label for="home-kitchen">Дом и кухня</label>
+                    </div>
+                </div>
+                <div>
+                    <label for="priceMin">Цена от:</label>
+                    <input type="number" id="priceMin" name="priceMin" min="0" step="100">
+                </div>
+                <div>
+                    <label for="priceMax">Цена до:</label>
+                    <input type="number" id="priceMax" name="priceMax" min="0" step="100">
+                </div>
+                <div>
+                    <label for="discount">Товары со скидкой:</label>
+                    <input type="checkbox" id="discount" name="discount">
+                </div>
+                <button type="submit">Применить</button>
+            </form>
+        </aside>
+    
+        <main>
+            <h2>Каталог</h2>
+            <div class="sort">
+                <label for="sort">Сортировать по:</label>
+                <select id="sort">
+                    <option value="rating_asc">Рейтингу (по возрастанию)</option>
+                    <option value="rating_desc">Рейтингу (по убыванию)</option>
+                    <option value="price_asc">Цене (по возрастанию)</option>
+                    <option value="price_desc">Цене (по убыванию)</option>
+                </select>
+            </div>
+
+            <div class="productGrid" id="productGrid"></div>
+
+            <div id="pagination"></div>
+        </main>
+    </div>
+
+    <footer>
+        <div><p>Печерин Ильдар 231-3211 | Контакты: t.me/K3rnys</p></div>
+    </footer>
+
+    <script src="source/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="./cartsource/cart.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">Мой Магазин</div>
+        <nav>
+            <a href="main.html" class="iconLink" title="Корзина"><img src="./cartsource/main.png" alt="Главная страница"></a>
+            <a href="profile.html" class="iconLink" title="Личный кабинет"><img src="./source/profile.png" alt="Личный кабинет"></a>
+        </nav>
+    </header>
+
+    <div id="notifications" class="notifications hidden">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <main>
+        <h1>Корзина</h1>
+        
+        <div id="productGrid" class="productGrid"></div>
+
+        <div id="emptyCartMessage" style="display:none;">Корзина пуста!</div>
+
+        <section class="orderForm">
+            <h2>Оформление заказа</h2>
+        
+            <div class="formLeft">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" required>
+        
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+        
+                <label for="phone">Телефон</label>
+                <input type="text" id="phone" name="phone" required>
+        
+                <label for="newsletter">Согласие на рассылку</label>
+                <input type="checkbox" id="newsletter" name="newsletter">
+
+                <label for="comment" class="commentLabel">Комментарий</label>
+                <textarea id="comment" name="comment"></textarea>
+            </div>
+        
+            <div class="formRight">
+                <label for="address">Адрес доставки</label>
+                <input type="text" id="address" name="address" required>
+        
+                <label for="deliveryDate">Дата доставки</label>
+                <input type="date" id="deliveryDate" name="deliveryDate" required>
+        
+                <label for="timeSlot">Временной интервал доставки</label>
+                <select id="timeSlot" name="timeSlot">
+                    <option value="08:00-12:00">8:00 - 12:00</option>
+                    <option value="12:00-14:00">12:00 - 14:00</option>
+                    <option value="4:00-18:00">14:00 - 18:00</option>
+                    <option value="18:00-22:00">18:00 - 22:00</option>
+                </select>
+                <div class="orderSummary">
+                    <h3>Итоговая стоимость</h3>
+                    <p id="totalPrice">Итоговая стоимость: ₽0</p> 
+                </div>
+                <div class="orderButtons">
+                    <button type="reset">Сбросить заказ</button>
+                    <button type="submit">Оформить заказ</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div><p>Печерин Ильдар 231-3211 | Контакты: t.me/K3rnys</p></div>
+    </footer>
+
+    <script src="./cartsource/cart.js"></script>
+</body>
+</html>

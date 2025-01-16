@@ -1,0 +1,275 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; 
+    display: flex;
+    flex-direction: column; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #333;
+    color: #fff;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+header nav {
+    display: flex;
+    gap: 15px;
+}
+
+header .iconLink img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Стили для уведомлений */
+.notifications {
+    display: block; 
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    padding: 20px 40px; 
+    border-radius: 10px; 
+    font-size: 18px; 
+    transition: opacity 0.5s ease-out;
+    text-align: center; 
+}
+
+.success {
+    background-color: #28a745;  /* Зеленый цвет для успеха */
+    color: white;
+}
+
+.error {
+    background-color: #dc3545;  /* Красный цвет для ошибки */
+    color: white;
+}
+
+.info {
+    background-color: #007bff;  /* Синий цвет для информации */
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Корзина */
+main {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.productCard {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-between; 
+    height: 100%; 
+}
+
+.productCard h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal; 
+    height: 50px; 
+    line-height: 24px; 
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.productCard img {
+    height: 150px;
+    width: 100%;
+    object-fit: contain; 
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.productCard .rating {
+    font-size: 16px;    
+    margin-bottom: 4px;
+}
+
+.productCard .price {
+    margin-bottom: 12px;
+}
+
+.productCard .actualPrice {
+    text-decoration: line-through;
+    color: #e74c3c;
+    margin-right: 10px;
+}
+
+.productCard .discountPrice {
+    font-weight: 550; 
+}
+
+.productCard button {
+    padding: 8px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.productCard  button:hover {
+    background-color: #d32f2f;
+}
+
+#emptyCartMessage {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #555;
+}
+
+.orderForm {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.orderForm h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    width: 100%; 
+}
+
+.formLeft, .formRight {
+    flex: 1 1 45%; 
+    min-width: 280px; 
+    padding: 15px;
+    background-color: #f9f9f9; 
+    border-radius: 5px;
+}
+
+.orderForm label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.orderForm input,
+.orderForm select,
+.orderForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Контейнер для кнопок */
+.orderForm .orderButtons {
+    padding: 10px;
+    display: flex;
+    gap: 5%; 
+}
+
+/* Стили для кнопок */
+.orderForm button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 47%; 
+    border-radius: 5px; 
+}
+
+.orderForm button:hover {
+    opacity: 0.9; 
+}
+
+.orderForm button[type="reset"] {
+    background-color: #f44336; 
+    color: white;
+}
+
+.orderForm button[type="reset"]:hover {
+    background-color: #d32f2f;
+}
+
+.orderForm button[type="submit"] {
+    background-color: #4CAF50; 
+    color: white;
+}
+
+.orderForm button[type="submit"]:hover {
+    background-color: #45a049; 
+}
+
+.orderForm .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+    margin: 0; 
+    width: auto; 
+}
+
+.orderForm label[for="comment"] {
+    display: block; 
+    width: 100%; 
+    margin-top: 15px;
+}
+
+.orderForm textarea {
+    display: block; 
+    height: 100px; 
+}
+
+footer {
+    margin-top: auto;  
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
