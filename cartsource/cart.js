@@ -228,4 +228,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loadCartItems();
-});
+});       
